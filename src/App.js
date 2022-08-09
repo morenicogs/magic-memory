@@ -21,7 +21,7 @@ function App() {
 	const [choiceOne, setChoiceOne] = useState(null)
 	const [choiceTwo, setChoiceTwo] = useState(null)
 
-
+	// Shuffle deck, double cards & give random ID
 	const shuffleCards = () => {
 		const shuffledCards = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
@@ -34,12 +34,13 @@ function App() {
 		setTurns(0)
 	}
 
-	console.log(cards, turns)
-
+	// Decide which choice it is
 	const handleChoice = (card) => {
+		//if choiceOne is already assigned, assign choiceTwo
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
 	}
-
+	
+	// Check if cards match
 	useEffect(() =>{
 		if(choiceOne && choiceTwo){
 			if(choiceOne.src === choiceTwo.src) {
@@ -59,8 +60,9 @@ function App() {
 				resetTurn()
 			}
 		}
-	}, [choiceTwo]) 
+	}, [choiceTwo]) // Only fire when choice Two is assigned
 
+	// When played, matched or not, the choices should be reset & a turn counted
 	const resetTurn = () => {
 		setChoiceOne(null)
 		setChoiceTwo(null)
